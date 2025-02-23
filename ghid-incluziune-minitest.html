@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Interactiv - Director Incluziune Școlară</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0056b3, #003d80);
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-in-out;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            text-align: left;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .question p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            background: linear-gradient(135deg, #0056b3, #003d80);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .options button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #0056b3, #003d80);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            opacity: 0;
+            animation: confetti 2s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Test Interactiv - Director Incluziune Școlară
+    </header>
+    <div class="container">
+        <h2>Test de cunoștințe pentru Incluziune Școlară</h2>
+        <div id="quiz">
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <div id="result"></div>
+            <button class="button" onclick="nextQuestion()">Următoarea întrebare</button>
+        </div>
+        <a href="index.html" class="button">Înapoi la Pagina Principală</a>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Care este scopul principal al incluziunii în CJE?",
+                options: ["Promovarea elitismului", "Asigurarea participării tuturor elevilor", "Ignorarea diversității", "Limitarea oportunităților"],
+                correct: 1
+            },
+            {
+                question: "Cum poți promova diversitatea în CJE?",
+                options: ["Organizând activități care să celebreze diversitatea", "Ignorând diferențele culturale", "Limitând participarea elevilor", "Nu este necesar să promovi diversitatea"],
+                correct: 0
+            },
+            {
+                question: "Ce trebuie să faci pentru a crea un mediu incluziv?",
+                options: ["Asigură-te că activitățile sunt accesibile pentru toți", "Ignoră nevoile elevilor", "Nu adapta materialele", "Nu este necesar să faci nimic"],
+                correct: 0
+            },
+            {
+                question: "Cum poți sprijini elevii cu nevoi speciale?",
+                options: ["Colaborează cu profesori și specialiști", "Ignoră nevoile lor", "Nu adapta activitățile", "Nu este necesar să le oferi sprijin"],
+                correct: 0
+            },
+            {
+                question: "Cum poți combate discriminarea în CJE?",
+                options: ["Implementând politici clare împotriva discriminării", "Ignorând cazurile de discriminare", "Nu este necesar să combați discriminarea", "Nu comunica despre acest subiect"],
+                correct: 0
+            },
+            {
+                question: "Cum poți încuraja participarea activă a elevilor?",
+                options: ["Încurajează elevii să-și exprime opiniile", "Ignoră ideile elevilor", "Nu este necesar să îi implici", "Nu organiza activități"],
+                correct: 0
+            },
+            {
+                question: "Ce trebuie să faci pentru a educa despre incluziune?",
+                options: ["Organizează workshop-uri despre incluziune", "Ignoră subiectul", "Nu este necesar să educi", "Nu distribui materiale informative"],
+                correct: 0
+            },
+            {
+                question: "Cum poți raporta progresul în promovarea incluziunii?",
+                options: ["Documentează activitățile și inițiativele", "Nu este necesar să raportezi", "Ignoră feedback-ul", "Nu propune îmbunătățiri"],
+                correct: 0
+            },
+            {
+                question: "Ce trebuie să faci dacă un elev raportează un caz de hărțuire?",
+                options: ["Acționează conform politicilor CJE", "Ignoră raportul", "Nu este necesar să faci nimic", "Nu comunica cu elevul"],
+                correct: 0
+            },
+            {
+                question: "Cum poți asigura egalitatea în CJE?",
+                options: ["Asigură-te că toți membrii sunt tratați echitabil", "Ignoră nevoile membrilor", "Nu este necesar să promovi egalitatea", "Nu adapta activitățile"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById("question").innerHTML = `<p>${q.question}</p>`;
+            document.getElementById("options").innerHTML = "";
+            q.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => checkAnswer(index);
+                document.getElementById("options").appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQuestion];
+            if (selected === q.correct) {
+                document.getElementById("result").innerHTML = `<p class="correct">Răspuns corect!</p>`;
+                score++;
+                showConfetti();
+            } else {
+                document.getElementById("result").innerHTML = `<p class="incorrect">Răspuns greșit. Încearcă din nou!</p>`;
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                document.getElementById("result").innerText = "";
+                loadQuestion();
+            } else {
+                const percentage = (score / questions.length) * 100;
+                if (percentage >= 70) {
+                    document.getElementById("quiz").innerHTML = `<h3>Test completat! Ai obținut ${percentage}% și ai promovat testul!</h3>`;
+                } else {
+                    document.getElementById("quiz").innerHTML = `<h3>Test completat! Ai obținut ${percentage}%. Trebuie să obții cel puțin 70% pentru a promova.</h3>`;
+                }
+            }
+        }
+
+        function showConfetti() {
+            const confettiContainer = document.createElement("div");
+            confettiContainer.className = "confetti";
+            for (let i = 0; i < 100; i++) {
+                const confettiPiece = document.createElement("div");
+                confettiPiece.className = "confetti-piece";
+                confettiPiece.style.left = Math.random() * 100 + "vw";
+                confettiPiece.style.animationDelay = Math.random() * 2 + "s";
+                confettiContainer.appendChild(confettiPiece);
+            }
+            document.body.appendChild(confettiContainer);
+            setTimeout(() => {
+                confettiContainer.remove();
+            }, 2000);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>
